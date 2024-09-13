@@ -7,7 +7,7 @@ class Test(models.Model):
         ('elementary', 'Elementary'),
         ('pre_intermediate', 'Pre-Intermediate'),
         ('intermediate', 'Intermediate'),
-        ('ielts', 'IELTS'),
+        ('upper_intermediate', 'Upper-Intermediate'),
     ]
 
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES)
