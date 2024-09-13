@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import LevelTestView, EvaluateTestView
+from .views import LevelTestView, EvaluateLevelTestView
 
 urlpatterns = [
-    path('test/<str:level>/', LevelTestView.as_view(), name='get_test'),
-    path('test/evaluate/', EvaluateTestView.as_view(), name='evaluate_test'),
+    path('evaluate/<str:level>/', EvaluateLevelTestView.as_view(), name='evaluate_test_level'),
+    path('<str:level>/', LevelTestView.as_view(), name='get_test'),
 ]

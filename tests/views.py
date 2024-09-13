@@ -24,22 +24,19 @@ class LevelTestView(APIView):
         return Response({"test_level": level, "questions": serializer.data['questions']})
 
 
-class EvaluateTestView(APIView):
-
-    def post(self, request):
+class EvaluateLevelTestView(APIView):
+    def post(self, request, level):
+        # Ensure this method is configured for POST
         submitted_answers = request.data.get('answers', {})
-        test_level = request.data.get('level')
-
-        # Get the test and its questions
         try:
-            test = Test.objects.get(level=test_level)
+            test = Test.objects.get(level=level)
         except Test.DoesNotExist:
             return Response({"error": "Test not found for this level."}, status=status.HTTP_404_NOT_FOUND)
 
         questions = test.questions.all()
         correct_count = 0
 
-        # Check submitted answers
+        # Validate the submitted answers
         for question in questions:
             question_id = str(question.id)
             if question_id in submitted_answers:
