@@ -4,6 +4,8 @@ from rest_framework import status
 from .models import Test, Question
 from .serializers import TestSerializer
 import random
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 
 class LevelTestView(APIView):
@@ -25,6 +27,36 @@ class LevelTestView(APIView):
 
 
 class EvaluateLevelTestView(APIView):
+    @swagger_auto_schema(
+        operation_description="Evaluate answers for a given test level",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'answers': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    description="Submitted answers for the test",
+                    example={
+                        "1": 2,
+                        "2": 3,
+                        "3": 1
+                    }
+                ),
+            },
+            required=['answers']
+        ),
+        responses={
+            200: openapi.Response('Result', openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    'total_questions': openapi.Schema(type=openapi.TYPE_INTEGER,
+                                                      description='Total number of questions'),
+                    'correct_answers': openapi.Schema(type=openapi.TYPE_INTEGER, description='Correct answers count'),
+                    'score': openapi.Schema(type=openapi.TYPE_NUMBER, description='Score percentage')
+                }
+            )),
+            400: 'Bad Request'
+        }
+    )
     def post(self, request, level):
         # Ensure this method is configured for POST
         submitted_answers = request.data.get('answers', {})
