@@ -11,7 +11,6 @@ from drf_yasg import openapi
 class LevelTestView(APIView):
 
     def get(self, request, level):
-        # Fetch the test for the given level
         try:
             test = Test.objects.get(level=level)
         except Test.DoesNotExist:

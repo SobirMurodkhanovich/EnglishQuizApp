@@ -83,10 +83,21 @@ WSGI_APPLICATION = 'english_test_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'english_quiz',  # Replace with your database name
+        'USER': 'postgres',  # Replace with your database username
+        'PASSWORD': '12345',  # Replace with your database password
+        'HOST': 'localhost',  # Set to 'localhost' or your PostgreSQL server IP
+        'PORT': '5432',  # Default PostgreSQL port
     }
 }
 
